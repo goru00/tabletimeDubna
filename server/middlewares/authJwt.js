@@ -3,8 +3,8 @@ const dotenv = require('dotenv');
 dotenv.config();
 
 const db = require('../models');
-const User = db.user;
-const Role = db.role;
+const Users = db.users;
+const Roles = db.roles;
 
 verifyToken = (req, res, next) => {
     let token = req.headers["x-access-token"];
@@ -21,12 +21,12 @@ verifyToken = (req, res, next) => {
 };
 
 isAdmin = (req, res, next) => {
-    User.findById(req.userId).exec((err, user) => {
+    Users.findById(req.userId).exec((err, user) => {
         if (err) {
             res.status(500).send({ message: err });
             return;
         }
-        Role.find(
+        Roles.find(
             {
                 _id: { $in: user.roles }
             },
@@ -49,13 +49,13 @@ isAdmin = (req, res, next) => {
 };
 
 isModerator = (req, res, next) => {
-    User.findById(req.userId).exec((err, user) => {
+    Users.findById(req.userId).exec((err, user) => {
       if (err) {
         res.status(500).send({ message: err });
         return;
       }
   
-      Role.find(
+      Roles.find(
         {
           _id: { $in: user.roles }
         },

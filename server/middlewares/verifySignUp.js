@@ -1,6 +1,6 @@
 const db = require("../models");
 const ROLES = db.ROLES;
-const User = db.user;
+const Users = db.users;
 
 checkRolesExisted = (req, res, next) => {
     if (req.body.roles) {

@@ -1,14 +1,14 @@
 const dotenv = require('dotenv');
 const db = require('../models');
-const User = db.user;
-const Role = db.role;
+const Users = db.users;
+const Roles = db.roles;
 
 var jwt = require('jsonwebtoken');
 var bcrypt = require('bcryptjs');
 dotenv.config();
 
 exports.signup = (req, res) => {
-  const user = new User({
+  const user = new Users({
     username: req.body.username,
     email: req.body.email,
     password: bcrypt.hashSync(req.body.password, 8)
@@ -21,7 +21,7 @@ exports.signup = (req, res) => {
     }
 
     if (req.body.roles) {
-      Role.find(
+      Roles.find(
         {
           name: { $in: req.body.roles }
         },
@@ -43,7 +43,7 @@ exports.signup = (req, res) => {
         }
       );
     } else {
-      Role.findOne({ name: "user" }, (err, role) => {
+      Roles.findOne({ name: "user" }, (err, role) => {
         if (err) {
           res.status(500).send({ message: err });
           return;
@@ -64,7 +64,7 @@ exports.signup = (req, res) => {
 };
 
 exports.signin = (req, res) => {
-    User.findOne({
+    Users.findOne({
       username: req.body.username
     })
       .populate("roles", "-__v")

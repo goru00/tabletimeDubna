@@ -27,7 +27,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // db
 
 const db = require('./models');
-const Role = db.role;
+const Roles = db.roles;
 
 db.mongoose
     .connect(
@@ -45,9 +45,9 @@ db.mongoose
     });
 
 function initial() {
-    Role.estimatedDocumentCount((err, count) => {
+    Roles.estimatedDocumentCount((err, count) => {
         if (!err && count === 0) {
-            new Role({
+            new Roles({
                 name: "user"
             }).save(err => {
                 if (err) {
@@ -57,7 +57,7 @@ function initial() {
                 console.log("added 'user' to roles collection");
             });
         
-            new Role({
+            new Roles({
                 name: "moderator"
             }).save(err => {
                 if (err) {
@@ -67,7 +67,7 @@ function initial() {
                 console.log("added 'moderator' to roles collection");
             });
         
-            new Role({
+            new Roles({
                 name: "admin"
             }).save(err => {
                 if (err) {
