@@ -18,3 +18,5 @@ const Groups = mongoose.model(
         ]
     })
 );
+
+module.exports = Groups;

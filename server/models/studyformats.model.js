@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
-const Faculties = new mongoose.model(
-    "Faculties",
+const StudyFormats = mongoose.model(
+    "StudyFormats",
     new mongoose.Schema({
         name: {
             type: String
@@ -9,4 +9,4 @@ const Faculties = new mongoose.model(
     })
 );
 
-module.exports = Faculties;
+module.exports = StudyFormats;

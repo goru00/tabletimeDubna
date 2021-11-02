@@ -28,6 +28,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 const db = require('./models');
 const Roles = db.roles;
+const StudyFormats = db.studyformats;
 
 db.mongoose
     .connect(
@@ -78,6 +79,34 @@ function initial() {
             });
         }
     });
+    StudyFormats.estimatedDocumentCount((err, count) => {
+        if (!err && count === 0) {
+            new StudyFormats({
+                name: "fulltime"
+            }).save(err => {
+                if (err) {
+                    console.log("error", err);
+                }
+                console.log("added 'fulltime' to studyformats collection");
+            });
+            new StudyFormats({
+                name: "parttime"
+            }).save(err => {
+                if (err) {
+                    console.log("error", err);
+                }
+                console.log("added 'parttime' to studyformats collection");
+            });
+            new StudyFormats({
+                name: "extramural"
+            }).save(err => {
+                if (err) {
+                    console.log("error", err);
+                }
+                console.log("added 'extramural' to studyformats collection");
+            });
+        } 
+    })
 }
     
 // routes

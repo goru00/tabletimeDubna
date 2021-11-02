@@ -1,7 +1,6 @@
 exports.allAccess = (req, res) => {
     res.status(200).send("Pub content");
 };
-
 exports.userBoard = (req, res) => {
     res.status(200).send("User content");
 };

@@ -20,3 +20,5 @@ const Disciplines = mongoose.model(
         ]
     })
 )
+
+module.exports = Disciplines;

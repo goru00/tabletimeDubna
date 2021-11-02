@@ -4,7 +4,8 @@ const Teachers = mongoose.model(
     "Teachers",
     new mongoose.Schema({
         userName: {
-            type: String,
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Users"
         },
         name: {
             type: String
