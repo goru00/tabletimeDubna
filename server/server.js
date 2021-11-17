@@ -25,9 +25,8 @@ const db = require('./models');
 
 const Role = db.role;
 
-db.sequelize.sync({ force: true }).then(() => {
-    console.log('Recreated db');
-    initial();
+db.sequelize.sync().then(() => {
+  initial();
 });
 
 function initial() {
