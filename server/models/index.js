@@ -24,18 +24,18 @@ const db = {};
 db.Sequelize = Sequelize;
 db.sequelize = sequelize;
 
+db.cabinet = require('../models/cabinet.model')(sequelize, Sequelize);
 db.user = require('../models/user.model')(sequelize, Sequelize);
 db.role = require('../models/role.model')(sequelize, Sequelize);
-db.teacher = require('../models/teacher.model')(sequelize, Sequelize);
-db.rank = require('../models/rank.model')(sequelize, Sequelize);
-db.lesson = require('../models/lesson.model')(sequelize, Sequelize);
+db.studyformat = require('../models/studyformat.model')(sequelize, Sequelize);
 db.group = require('../models/group.model')(sequelize, Sequelize);
-db.facultie = require('../models/facultie.model')(sequelize, Sequelize);
-db.cabinet = require('../models/cabinet.model')(sequelize, Sequelize);
+db.grade = require('../models/grade.model')(sequelize, Sequelize);
+db.teacher = require('../models/teacher.model')(sequelize, Sequelize);
 db.dow = require('../models/dow.model')(sequelize, Sequelize);
 db.discipline = require('../models/discipline.model')(sequelize, Sequelize);
-db.studyformat = require('../models/studyformat.model')(sequelize, Sequelize);
-db.grade = require('../models/grade.model')(sequelize, Sequelize);
+db.facultie = require('../models/facultie.model')(sequelize, Sequelize);
+db.rank = require('../models/rank.model')(sequelize, Sequelize);
+db.lesson = require('../models/lesson.model')(sequelize, Sequelize);
 
 db.role.belongsToMany(db.user, {
     through: "user_roles",
@@ -81,6 +81,8 @@ db.teacher.belongsToMany(db.rank, {
     onDelete: "cascade",
     onUpdate: "cascade"
 });
+
+db.user.hasOne(db.teacher, { onUpdate: "cascade", onDelete: "cascade" });
 
 db.ROLES = ["user", "moderator", "admin"];
 
