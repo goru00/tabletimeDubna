@@ -17,7 +17,7 @@ module.exports = function(app) {
             authJwt.isAdmin
         ],
         controller.getUsers
-    )
+    );
     app.get(
         "/api/pub/user",
         [
@@ -35,7 +35,7 @@ module.exports = function(app) {
         controller.moderatorBoard
     );
     app.get(
-        "/api/mod/admin",
+        "/api/pub/admin",
         [
             authJwt.verifyToken,
             authJwt.isAdmin

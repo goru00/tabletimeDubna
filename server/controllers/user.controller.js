@@ -17,7 +17,16 @@ exports.moderatorBoard = (req, res) => {
 exports.getUsers = (req, res) => {
     User.findAll({raw: true})
     .then(users => {
-        res.status(200).send(users);
+        var user = [];
+        for (let i = 0; i < users.length; i++)
+        {
+            user.push({
+                id: users[i].id,
+                username: users[i].username,
+                fullname: users[i].fullname
+            });
+        }
+        res.status(200).send(user);
     })
     .catch(err => {
         res.status(500).send({ message: err });
