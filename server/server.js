@@ -54,6 +54,7 @@ app.get("/", (req, res) => {
 require('./routes/auth.routes')(app);
 require('./routes/user.routes')(app);
 require('./routes/role.routes')(app);
+require('./routes/teacher.routes')(app);
 
 // run server
 

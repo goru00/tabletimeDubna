@@ -1,4 +1,4 @@
-const { authJwt } = require('../middleware');
+const { authJwt, verifyTeacher } = require('../middleware');
 const controller = require('../controllers/teacher.controller');
 
 module.exports = function(app) {
@@ -16,5 +16,14 @@ module.exports = function(app) {
             authJwt.isAdmin
         ], 
         controller.getTeachers
+    );
+    app.post(
+        "/api/pub/teachers",
+        [
+            authJwt.verifyToken,
+            verifyTeacher.checkDuplicateTeacher,
+            authJwt.isAdmin
+        ],
+        controller.setTeachers
     );
 };

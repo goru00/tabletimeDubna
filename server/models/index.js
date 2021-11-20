@@ -79,6 +79,7 @@ db.teacher.belongsToMany(db.rank, {
 });
 
 db.user.hasOne(db.teacher, { onUpdate: "cascade", onDelete: "cascade" });
+db.teacher.belongsTo(db.user);
 
 db.ROLES = ["user", "moderator", "admin"];
 
