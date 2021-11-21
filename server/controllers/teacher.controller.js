@@ -21,7 +21,7 @@ exports.setTeachers = (req, res) => {
     .then(teacher => {
         Role.findAll({
             where: {
-                roles: {
+                name: {
                     [Op.or]: ["moderator"]
                 }
             }
