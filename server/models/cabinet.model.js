@@ -2,13 +2,16 @@ module.exports = (sequelize, Seqielize) => {
     const Cabinet = sequelize.define("cabinets", {
         id: {
             type: Seqielize.STRING,
-            primaryKey: true
+            primaryKey: true,
+            allowNull: false
         },
         name: {
-            type: Seqielize.STRING
+            type: Seqielize.STRING,
+            allowNull: false
         },
         description: {
-            type: Seqielize.STRING
+            type: Seqielize.STRING,
+            allowNull: true
         }
     });
     return Cabinet;

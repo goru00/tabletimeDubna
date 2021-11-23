@@ -24,25 +24,64 @@ app.use(bodyParser.urlencoded({ extended: true }));
 const db = require('./models');
 
 const Role = db.role;
+const Dow = db.dow;
 
-db.sequelize.sync().then(() => {
+db.sequelize.sync({ force: false }).then(() => {
   initial();
 });
 
 function initial() {
-    Role.create({
-      id: uuid.v4(),
-      name: "user"
+    Role.findOne({ raw: true }).then(role => {
+      if (!role)
+      {
+        Role.create({
+          id: uuid.v4(),
+          name: "user"
+        });
+       
+        Role.create({
+          id: uuid.v4(),
+          name: "moderator"
+        });
+       
+        Role.create({
+          id: uuid.v4(),
+          name: "admin"
+        });
+      }
     });
-   
-    Role.create({
-      id: uuid.v4(),
-      name: "moderator"
-    });
-   
-    Role.create({
-      id: uuid.v4(),
-      name: "admin"
+    Dow.findOne({ raw: true }).then(dow => {
+      if (!dow) 
+      {
+        Dow.create({
+          id: uuid.v4(),
+          name: "ПН"
+        });
+        Dow.create({
+          id: uuid.v4(),
+          name: "ВТ"
+        });
+        Dow.create({
+          id: uuid.v4(),
+          name: "СР"
+        });
+        Dow.create({
+          id: uuid.v4(),
+          name: "ЧТ"
+        });
+        Dow.create({
+          id: uuid.v4(),
+          name: "ПТ"
+        });
+        Dow.create({
+          id: uuid.v4(),
+          name: "СБ"
+        });
+        Dow.create({
+          id: uuid.v4(),
+          name: "ВС"
+        });
+      }
     });
 }
 

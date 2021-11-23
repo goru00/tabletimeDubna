@@ -1,11 +1,13 @@
 module.exports = (sequelize, Sequelize) => {
     const Teacher = sequelize.define("teachers", {
-        id: {
+        userId: {
             type: Sequelize.STRING,
-            primaryKey: true
+            primaryKey: true,
+            allowNull: false
         },
         description: {
-            type: Sequelize.STRING
+            type: Sequelize.STRING,
+            allowNull: false
         }
     });
     return Teacher;

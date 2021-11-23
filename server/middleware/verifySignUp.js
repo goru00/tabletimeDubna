@@ -1,6 +1,7 @@
 const db = require('../models');
 const ROLES = db.ROLES;
 const User = db.user;
+const Discipline = db.discipline;
 
 checkDuplicateUsername = (req, res, next) => {
     User.findOne({
@@ -11,6 +12,22 @@ checkDuplicateUsername = (req, res, next) => {
         if (user) {
             res.status(400).send({
                 message: "Error! Username is already in use!"
+            });
+            return;
+        }
+        next();
+    });
+};
+
+checkDisciplineNameExisted = (req, res, next) => {
+    Discipline.findOne({
+        where: {
+            name: req.body.name
+        }
+    }).then(discipline => {
+        if (discipline) {
+            res.status(400).send({
+                message: "Error! Discipline is already in use!"
             });
             return;
         }
@@ -34,7 +51,8 @@ checkRolesExisted = (req, res, next) => {
 
 const verifySignUp = {
     checkDuplicateUsername,
-    checkRolesExisted
+    checkRolesExisted,
+    checkDisciplineNameExisted
 };
 
 module.exports = verifySignUp;

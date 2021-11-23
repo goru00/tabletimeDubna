@@ -2,13 +2,16 @@ module.exports = (sequelize, Seqielize) => {
     const Lesson = sequelize.define("lessons", {
         id: {
             type: Seqielize.STRING,
-            primaryKey: true
+            primaryKey: true,
+            allowNull: false
         },
         startL: {
-            type: Seqielize.DATE
+            type: Seqielize.TIME,
+            allowNull: false
         },
         finishL: {
-            type: Seqielize.DATE
+            type: Seqielize.TIME,
+            allowNull: false
         }
     });
     return Lesson;
