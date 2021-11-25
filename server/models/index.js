@@ -46,6 +46,11 @@ db.user.belongsToMany(db.role, {
     otherKey: "roleId"
 });
 
+db.facultie.hasMany(db.group, {
+    foreignKey: "facultieId"
+});
+
+
 db.user.hasOne(db.teacher, { onUpdate: "cascade", onDelete: "cascade" });
 
 db.ROLES = ["user", "moderator", "admin"];

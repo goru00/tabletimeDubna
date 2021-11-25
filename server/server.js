@@ -25,6 +25,7 @@ const db = require('./models');
 
 const Role = db.role;
 const Dow = db.dow;
+const FormatStudy = db.studyformat;
 
 db.sequelize.sync({ force: false }).then(() => {
   initial();
@@ -83,6 +84,23 @@ function initial() {
         });
       }
     });
+    FormatStudy.findOne({ raw: true}).then(format => {
+      if (!format)
+      {
+        FormatStudy.create({
+          id: uuid.v4(),
+          name: "Очное"
+        });
+        FormatStudy.create({
+          id: uuid.v4(),
+          name: "Очно-заочное"
+        });
+        FormatStudy.create({
+          id: uuid.v4(),
+          name: "Заочное"
+        });
+      }
+    });
 }
 
 // routes
@@ -94,6 +112,8 @@ require('./routes/auth.routes')(app);
 require('./routes/user.routes')(app);
 require('./routes/role.routes')(app);
 require('./routes/teacher.routes')(app);
+require('./routes/group.routes')(app);
+require('./routes/facultie.router')(app);
 
 // run server
 

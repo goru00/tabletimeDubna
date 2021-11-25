@@ -9,16 +9,16 @@ module.exports = function(app) {
         );
         next();
     });
+    app.get(
+        "/api/pub/disciplines",
+        controller.getDisciplines
+    );
     app.post(
-        "/api/pub/discipline",
+        "/api/pub/disciplines",
         [
             verifySignUp.checkDisciplineNameExisted,
             authJwt.isAdmin
         ],
         controller.signup
-    );
-    app.get(
-        "/api/pub/discipline",
-        controller.getDisciplines
     );
 };

@@ -12,7 +12,7 @@ exports.getDisciplines = (req, res) => {
 
 exports.setDisciplines = (req, res) => {
     Discipline.create({
-        Id: uuid.v4(),
+        id: uuid.v4(),
         name: req.body.name,
         description: req.body.name
     }).then(() => {

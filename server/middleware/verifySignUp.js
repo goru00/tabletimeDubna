@@ -2,6 +2,8 @@ const db = require('../models');
 const ROLES = db.ROLES;
 const User = db.user;
 const Discipline = db.discipline;
+const Group = db.group;
+const Facultie = db.facultie;
 
 checkDuplicateUsername = (req, res, next) => {
     User.findOne({
@@ -18,6 +20,38 @@ checkDuplicateUsername = (req, res, next) => {
         next();
     });
 };
+
+checkGroupNameExisted = (req, res, next) => {
+    Group.findOne({
+        where: {
+            name: req.body.name
+        }
+    }).then(group => {
+        if (group) {
+            res.status(400).send({
+                messsage: "Error! Group is already in use!"
+            });
+            return;
+        }
+        next();
+    });
+}
+
+checkFacultieNameExisted = (req, res, next) => {
+    Facultie.findOne({
+        where: {
+            name: req.body.name
+        }
+    }).then(facultie => {
+        if (facultie) {
+            res.status(400).send({
+                messsage: "Error! Facultie is already in use!"
+            });
+            return;
+        }
+        next();
+    });
+}
 
 checkDisciplineNameExisted = (req, res, next) => {
     Discipline.findOne({
@@ -52,7 +86,9 @@ checkRolesExisted = (req, res, next) => {
 const verifySignUp = {
     checkDuplicateUsername,
     checkRolesExisted,
-    checkDisciplineNameExisted
+    checkDisciplineNameExisted,
+    checkFacultieNameExisted,
+    checkGroupNameExisted
 };
 
 module.exports = verifySignUp;
