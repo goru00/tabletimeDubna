@@ -1,5 +1,5 @@
 const { verifySignUp, authJwt } = require('../middleware');
-const controller = require('../controllers/discipline.controller');
+const controller = require('../controllers/cabinet.controller');
 
 module.exports = function(app) {
     app.use(function(req, res, next) {
@@ -10,16 +10,16 @@ module.exports = function(app) {
         next();
     });
     app.get(
-        "/api/pub/disciplines",
-        controller.getDisciplines
+        "/api/pub/cabinets",
+        controller.getCabinets
     );
     app.post(
-        "/api/pub/disciplines",
+        "/api/pub/cabinets",
         [
             authJwt.verifyToken,
-            verifySignUp.checkDisciplineNameExisted,
+            verifySignUp.checkCabinetNameExisted,
             authJwt.isAdmin
         ],
-        controller.setDisciplines
+        controller.setCabinets
     );
 };

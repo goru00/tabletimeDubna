@@ -17,7 +17,7 @@ exports.setGroups = (req, res) => {
         studentDigit: req.body.studentDigit,
         facultieId: req.body.facultieId
     }).then(() => {
-        res.status(200).send({ message: "Facultie was created successfully!"});
+        res.status(200).send({ message: "Group was created successfully!"});
     }).catch(err => {
         res.status(500).send({ message: err.message });
     });

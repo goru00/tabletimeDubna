@@ -4,6 +4,7 @@ const User = db.user;
 const Discipline = db.discipline;
 const Group = db.group;
 const Facultie = db.facultie;
+const Cabinet = db.cabinet;
 
 checkDuplicateUsername = (req, res, next) => {
     User.findOne({
@@ -30,6 +31,22 @@ checkGroupNameExisted = (req, res, next) => {
         if (group) {
             res.status(400).send({
                 messsage: "Error! Group is already in use!"
+            });
+            return;
+        }
+        next();
+    });
+}
+
+checkCabinetNameExisted = (req, res, next) => {
+    Cabinet.findOne({
+        where: {
+            name: req.body.name
+        }
+    }).then(cabinet => {
+        if (cabinet) {
+            res.status(400).send({
+                messsage: "Error! Cabinet is already in use!"
             });
             return;
         }
@@ -88,7 +105,8 @@ const verifySignUp = {
     checkRolesExisted,
     checkDisciplineNameExisted,
     checkFacultieNameExisted,
-    checkGroupNameExisted
+    checkGroupNameExisted,
+    checkCabinetNameExisted
 };
 
 module.exports = verifySignUp;

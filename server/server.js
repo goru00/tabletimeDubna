@@ -114,6 +114,8 @@ require('./routes/role.routes')(app);
 require('./routes/teacher.routes')(app);
 require('./routes/group.routes')(app);
 require('./routes/facultie.router')(app);
+require('./routes/discipline.routes')(app);
+require('./routes/cabinet.routes')(app);
 
 // run server
 

@@ -1,6 +1,6 @@
 module.exports = (sequelize, Sequelize) => {
     const Teacher = sequelize.define("teachers", {
-        userId: {
+        id: {
             type: Sequelize.STRING,
             primaryKey: true,
             allowNull: false

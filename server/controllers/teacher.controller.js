@@ -12,7 +12,7 @@ exports.getTeachers = (req, res) => {
 
 exports.setTeachers = (req, res) => {
     Teacher.create({
-        userId: req.body.userId,
+        id: req.body.id,
         description: req.body.description
     })
     .then(() => {
