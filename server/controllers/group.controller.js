@@ -15,7 +15,7 @@ exports.setGroups = (req, res) => {
         id: uuid.v4(),
         name: req.body.name,
         studentDigit: req.body.studentDigit,
-        facultieId: req.body.facultieId
+        facultyId: req.body.facultyId
     }).then(() => {
         res.status(200).send({ message: "Group was created successfully!"});
     }).catch(err => {

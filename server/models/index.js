@@ -34,17 +34,22 @@ db.dow = require('../models/dow.model')(sequelize, Sequelize);
 db.discipline = require('../models/discipline.model')(sequelize, Sequelize);
 db.facultie = require('../models/facultie.model')(sequelize, Sequelize);
 db.lesson = require('../models/lesson.model')(sequelize, Sequelize);
+db.parity = require('../models/parity.model')(sequelize, Sequelize);
 
 const UserRoles = sequelize.define('user_roles', {
     userId: {
         type: Sequelize.DataTypes.STRING,
+        allowNull: false,
+        primaryKey: true,
         references: {
             model: db.user,
             key: 'id'
         }
     },
     roleId: {
-        type: Sequelize.DataTypes.INTEGER,
+        type: Sequelize.DataTypes.STRING,
+        allowNull: false,
+        primaryKey: true,
         references: {
             model: db.role,
             key: 'id'
@@ -52,63 +57,35 @@ const UserRoles = sequelize.define('user_roles', {
     }
 });
 
-const TeacherDisciplines = sequelize.define('teacher_discipline', {
+const TeacherFaculties = sequelize.define('teacher_faculties', {
     teacherId: {
-        type: Sequelize.DataTypes.STRING,
-        primaryKey: true,
+        type: Sequelize.STRING,
         allowNull: false,
+        primaryKey: true,
         references: {
             model: db.teacher,
             key: 'id'
         }
     },
-    disciplineId: {
-        type: Sequelize.DataTypes.STRING,
-        primaryKey: true,
+    facultyId: {
+        type: Sequelize.STRING,
         allowNull: false,
-        references: {
-            model: db.discipline,
-            key: 'id'
-        }
-    },
-    facultieId: {
-        type: Sequelize.DataTypes.STRING,
         primaryKey: true,
-        allowNull: false,
         references: {
             model: db.facultie,
-            key: 'id'
-        }
-    },
-    groupId: {
-        type: Sequelize.DataTypes.STRING,
-        primaryKey: true,
-        allowNull: false,
-        references: {
-            model: db.group,
             key: 'id'
         }
     }
 });
 
-db.teacher.belongsToMany(db.discipline, { through: TeacherDisciplines });
-db.discipline.belongsToMany(db.teacher, { through: TeacherDisciplines });
-
 db.user.belongsToMany(db.role, { through: UserRoles });
 db.role.belongsToMany(db.user, { through: UserRoles });
 
-db.facultie.hasMany(db.group, {
-    foreignKey: 'facultieId',
-    as: 'faculties',
-    onUpdate: "cascade",
-    onDelete: "cascade"
-});
-db.group.belongsTo(db.facultie, {
-    foreignKey: 'facultieId',
-    as: 'faculties',
-    onUpdate: "cascade",
-    onDelete: "cascade"
-});
+db.teacher.belongsToMany(db.facultie, { through: TeacherFaculties });
+db.facultie.belongsToMany(db.teacher, { through: TeacherFaculties });
+
+db.facultie.hasMany(db.group);
+db.group.belongsTo(db.facultie);
 
 db.user.hasOne(db.teacher, { 
     foreignKey: 'id',

@@ -1,5 +1,8 @@
 const db = require('../models');
 const Teacher = db.teacher;
+const Faculties = db.facultie;
+
+const Op = db.Sequelize.Op;
 
 exports.getTeachers = (req, res) => {
     Teacher.findAll( { raw: true} )
@@ -15,8 +18,22 @@ exports.setTeachers = (req, res) => {
         id: req.body.id,
         description: req.body.description
     })
-    .then(() => {
-        res.status(200).send({ message: "Teacher was registered successfully!"});
+    .then(teacher => {
+        if (req.body.faculties) {
+            Faculties.findAll({
+                where: {
+                    name: {
+                        [Op.or]: req.body.faculties
+                    }
+                } 
+            }).then(faculties => {
+                teacher.setFaculties(faculties).then(() => {
+                    res.status(200).send({ message: "Teacher was registered successfully" });
+                });
+            })
+        } else {
+            res.status(200).send({ message: "Teacher was registered successfully!"});
+        }
     }).catch(err => {
         res.status(500).send({ message: err.message });
     });

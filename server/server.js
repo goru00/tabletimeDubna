@@ -26,6 +26,7 @@ const db = require('./models');
 const Role = db.role;
 const Dow = db.dow;
 const FormatStudy = db.studyformat;
+const Parity = db.parity;
 
 db.sequelize.sync({ force: false }).then(() => {
   initial();
@@ -101,6 +102,18 @@ function initial() {
         });
       }
     });
+    Parity.findOne({ raw: true }).then(parity => {
+      if (!parity) {
+        Parity.create({
+          id: uuid.v4(),
+          name: "Четная"
+        });
+        Parity.create({
+          id: uuid.v4(),
+          name: "Нечетная"
+        });
+      }
+    })
 }
 
 // routes
@@ -116,6 +129,7 @@ require('./routes/group.routes')(app);
 require('./routes/facultie.router')(app);
 require('./routes/discipline.routes')(app);
 require('./routes/cabinet.routes')(app);
+require('./routes/lesson.routes')(app);
 
 // run server
 

@@ -5,6 +5,7 @@ const Discipline = db.discipline;
 const Group = db.group;
 const Facultie = db.facultie;
 const Cabinet = db.cabinet;
+const Lesson = db.lesson;
 
 checkDuplicateUsername = (req, res, next) => {
     User.findOne({
@@ -86,6 +87,23 @@ checkDisciplineNameExisted = (req, res, next) => {
     });
 };
 
+checkTimeLessonExisted = (req, res, next) => {
+    Lesson.findOne({
+        where: {
+            startL: req.body.startL,
+            finishL: req.body.finishL
+        }
+    }).then(lesson => {
+        if (lesson) {
+            res.status(400).send({
+                message: "Error! Time lesson is already in use!"
+            });
+            return;
+        }
+        next();
+    });
+};
+
 checkRolesExisted = (req, res, next) => {
     if (req.body.roles) {
         for (let i = 0; i < req.body.roles.length; i++) {
@@ -106,7 +124,8 @@ const verifySignUp = {
     checkDisciplineNameExisted,
     checkFacultieNameExisted,
     checkGroupNameExisted,
-    checkCabinetNameExisted
+    checkCabinetNameExisted,
+    checkTimeLessonExisted
 };
 
 module.exports = verifySignUp;

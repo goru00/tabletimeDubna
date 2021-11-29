@@ -1,5 +1,5 @@
 module.exports = (sequelize, Seqielize) => {
-    const Group = sequelize.define("groups", {
+    const Parity = sequelize.define("parities", {
         id: {
             type: Seqielize.STRING,
             primaryKey: true,
@@ -8,15 +8,7 @@ module.exports = (sequelize, Seqielize) => {
         name: {
             type: Seqielize.STRING,
             allowNull: false
-        },
-        studentDigit: {
-            type: Seqielize.INTEGER,
-            allowNull: false
-        },
-        facultyId: {
-            type: Seqielize.STRING,
-            allowNull: false
         }
     });
-    return Group;
+    return Parity;
 };
