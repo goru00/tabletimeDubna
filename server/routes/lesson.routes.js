@@ -1,5 +1,6 @@
 const { authJwt, verifySignUp } = require('../middleware');
 const controller = require('../controllers/lesson.controller');
+const { VERSION_API } = require('./index');
 
 module.exports = function(app) {
     app.use(function(req, res, next) {
@@ -10,7 +11,7 @@ module.exports = function(app) {
         next();
     });
     app.get(
-        "/api/pub/lessons",
+        "/api/" + VERSION_API + "/pub/lessons",
         [
             authJwt.verifyToken,
             authJwt.isAdmin
@@ -18,7 +19,7 @@ module.exports = function(app) {
         controller.getLessons
     );
     app.post(
-        "/api/pub/lessons",
+        "/api/" + VERSION_API + "/pub/lessons",
         [
             authJwt.verifyToken,
             verifySignUp.checkTimeLessonExisted,

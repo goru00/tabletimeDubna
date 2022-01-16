@@ -30,7 +30,7 @@ exports.setTeachers = (req, res) => {
                 teacher.setFaculties(faculties).then(() => {
                     res.status(200).send({ message: "Teacher was registered successfully" });
                 });
-            })
+            });
         } else {
             res.status(200).send({ message: "Teacher was registered successfully!"});
         }

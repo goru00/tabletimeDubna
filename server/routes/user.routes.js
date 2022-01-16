@@ -1,5 +1,6 @@
 const { authJwt } = require('../middleware');
 const controller = require('../controllers/user.controller');
+const { VERSION_API } = require('./index');
 
 module.exports = function(app) {
     app.use(function(req, res, next) {
@@ -9,9 +10,9 @@ module.exports = function(app) {
         );
         next();
     });
-    app.get("/api/pub/all", controller.allAccess);
+    app.get("/api/" + VERSION_API + "/pub/all", controller.allAccess);
     app.get(
-        "/api/pub/users",
+        "/api/" + VERSION_API + "/pub/users",
         [
             authJwt.verifyToken,
             authJwt.isAdmin
@@ -19,7 +20,7 @@ module.exports = function(app) {
         controller.getUsers
     );
     app.get(
-        "/api/pub/user",
+        "/api/" + VERSION_API + "/pub/user",
         [
             authJwt.verifyToken, 
             authJwt.isModerator
@@ -27,7 +28,7 @@ module.exports = function(app) {
         controller.userBoard
     );
     app.get(
-        "/api/pub/mod",
+        "/api/" + VERSION_API + "/pub/mod",
         [
             authJwt.verifyToken,
             authJwt.isModerator
@@ -35,7 +36,7 @@ module.exports = function(app) {
         controller.moderatorBoard
     );
     app.get(
-        "/api/pub/admin",
+        "/api/" + VERSION_API + "/pub/admin",
         [
             authJwt.verifyToken,
             authJwt.isAdmin

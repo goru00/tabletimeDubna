@@ -1,5 +1,6 @@
 const { verifySignUp, authJwt } = require('../middleware');
 const controller = require('../controllers/discipline.controller');
+const { VERSION_API } = require('./index');
 
 module.exports = function(app) {
     app.use(function(req, res, next) {
@@ -10,11 +11,11 @@ module.exports = function(app) {
         next();
     });
     app.get(
-        "/api/pub/disciplines",
+        "/api/" + VERSION_API + "/pub/disciplines",
         controller.getDisciplines
     );
     app.post(
-        "/api/pub/disciplines",
+        "/api/" + VERSION_API + "/pub/disciplines",
         [
             authJwt.verifyToken,
             verifySignUp.checkDisciplineNameExisted,

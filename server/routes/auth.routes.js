@@ -1,5 +1,6 @@
 const { verifySignUp } = require('../middleware');
 const controller = require('../controllers/auth.controller');
+const { VERSION_API } = require('./index');
 
 module.exports = function(app) {
     app.use(function(req, res, next) {
@@ -10,7 +11,7 @@ module.exports = function(app) {
         next();
     });
     app.post(
-        "/api/auth/signup",
+        "/api/" + VERSION_API + "/auth/signup",
         [
             verifySignUp.checkDuplicateUsername,
             verifySignUp.checkRolesExisted
@@ -18,7 +19,7 @@ module.exports = function(app) {
         controller.signup
     );
     app.post(
-        "/api/auth/signin",
+        "/api/" + VERSION_API + "/auth/signin",
         controller.signin
     );
 };

@@ -1,5 +1,6 @@
 const { verifySignUp, authJwt } = require('../middleware');
 const controller = require('../controllers/cabinet.controller');
+const { VERSION_API } = require('./index');
 
 module.exports = function(app) {
     app.use(function(req, res, next) {
@@ -10,11 +11,11 @@ module.exports = function(app) {
         next();
     });
     app.get(
-        "/api/pub/cabinets",
+        "/api/" + VERSION_API + "/pub/cabinets",
         controller.getCabinets
     );
     app.post(
-        "/api/pub/cabinets",
+        "/api/" + VERSION_API + "/pub/cabinets",
         [
             authJwt.verifyToken,
             verifySignUp.checkCabinetNameExisted,

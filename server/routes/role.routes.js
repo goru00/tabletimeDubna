@@ -1,5 +1,6 @@
 const { authJwt } = require('../middleware');
 const controller = require('../controllers/role.controller');
+const { VERSION_API } = require('./index');
 
 module.exports = function(app) {
     app.use(function(req, res, next) {
@@ -10,7 +11,7 @@ module.exports = function(app) {
         next();
     });
     app.get(
-        "/api/pub/roles",
+        "/api/" + VERSION_API + "/pub/roles",
         [
             authJwt.verifyToken,
             authJwt.isAdmin
